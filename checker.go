@@ -33,6 +33,8 @@ func NewChecker(urls []string) Checker {
 	}
 }
 
+// -----------------
+
 type checkerImpl struct {
 	urls []string
 }
@@ -43,7 +45,7 @@ func (ci checkerImpl) Check() CheckResult {
 	for _, url := range ci.urls {
 		url = strings.TrimSpace(url)
 		if url != "" {
-			err := ci.checkUrl(url)
+			err := ci.checkURL(url)
 			if err != nil {
 				ok = false
 				text += fmt.Sprintf("%s\r\nERR %s\r\n\r\n", url, err)
@@ -55,7 +57,7 @@ func (ci checkerImpl) Check() CheckResult {
 	return CheckResult{ok, text}
 }
 
-func (ci checkerImpl) checkUrl(url string) error {
+func (ci checkerImpl) checkURL(url string) error {
 	DEBUG.Printf("check %s\n", url)
 	res, err := http.Get(url)
 	if err != nil {

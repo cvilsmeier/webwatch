@@ -14,13 +14,13 @@ type fakeSleeper struct {
 	calls []string
 }
 
-func (this *fakeSleeper) Sleep(duration time.Duration) {
+func (fake *fakeSleeper) Sleep(duration time.Duration) {
 	call := fmt.Sprintf("Sleep(%s)", duration)
-	this.calls = append(this.calls, call)
+	fake.calls = append(fake.calls, call)
 }
 
-func (this *fakeSleeper) reset() {
-	this.calls = []string{}
+func (fake *fakeSleeper) reset() {
+	fake.calls = []string{}
 }
 
 // ------------------------------------------
@@ -31,8 +31,8 @@ type fakeChecker struct {
 	result CheckResult
 }
 
-func (this *fakeChecker) Check() CheckResult {
-	return this.result
+func (fake *fakeChecker) Check() CheckResult {
+	return fake.result
 }
 
 // ------------------------------------------
@@ -43,18 +43,18 @@ type fakeMailer struct {
 	calls []string
 }
 
-func (this *fakeMailer) SendRestarted(now time.Time) {
+func (fake *fakeMailer) SendRestarted(now time.Time) {
 	call := fmt.Sprintf("SendRestarted()")
-	this.calls = append(this.calls, call)
+	fake.calls = append(fake.calls, call)
 }
 
-func (this *fakeMailer) SendReport(now time.Time, ok bool, text string) {
+func (fake *fakeMailer) SendReport(now time.Time, ok bool, text string) {
 	call := fmt.Sprintf("SendReport(%t, %s)", ok, text)
-	this.calls = append(this.calls, call)
+	fake.calls = append(fake.calls, call)
 }
 
-func (this *fakeMailer) reset() {
-	this.calls = []string{}
+func (fake *fakeMailer) reset() {
+	fake.calls = []string{}
 }
 
 // ------------------------------------------
