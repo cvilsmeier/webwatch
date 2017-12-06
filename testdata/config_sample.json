@@ -1,0 +1,17 @@
+{
+    "urls": [
+        "https://www.google.com",
+        "https://www.twitter.com"
+    ],
+    "checks": "5m",
+    "reports": "12h",
+    "limit": "1h",
+    "mail" : {
+        "subject" : "[Webwatch] MY_SERVER",
+        "from" : "mail@example.com",
+        "to" : "myself@example.com",
+        "host" : "smtp.example.com",
+        "username" : "example_username_00012",
+        "password" : "example_password_00012"
+    }
+}
