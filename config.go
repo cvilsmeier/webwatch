@@ -83,14 +83,23 @@ func LoadConfig(filename string) (Config, error) {
 }
 
 func sanitizeConfig(c Config) Config {
+	if time.Duration(c.Checks) == 0 {
+		c.Checks = Interval(5 * time.Minute)
+	}
 	if time.Duration(c.Checks) < 1*time.Second {
 		c.Checks = Interval(1 * time.Second)
 	}
-	if time.Duration(c.Reports) < 30*time.Second {
-		c.Reports = Interval(30 * time.Second)
+	if time.Duration(c.Reports) == 0 {
+		c.Reports = Interval(12 * time.Hour)
 	}
-	if time.Duration(c.Limit) < 30*time.Second {
-		c.Limit = Interval(30 * time.Second)
+	if time.Duration(c.Reports) < 1*time.Second {
+		c.Reports = Interval(1 * time.Second)
+	}
+	if time.Duration(c.Limit) == 0 {
+		c.Limit = Interval(1 * time.Hour)
+	}
+	if time.Duration(c.Limit) < 1*time.Second {
+		c.Limit = Interval(1 * time.Second)
 	}
 	if c.Mail.Subject == "" {
 		c.Mail.Subject = "Webwatch"

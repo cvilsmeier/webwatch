@@ -15,18 +15,23 @@ If you run two or more servers, install webwatch on each of them and let them
 check each other.
 
 
-## Installation
+## Build
 
 Webwatch is written in [Go](https://golang.org/) (we need 1.9.0 or higher).
 
 ```bash
-$ go get -u github.com/cvilsmeier/webwatch/cmd/webwatch
+user@wombat # mkdir ~/webwatch
+user@wombat # export GOPATH=/tmp/webwatch
+user@wombat # cd $GOPATH
+user@wombat # go get -u github.com/cvilsmeier/webwatch/cmd/webwatch
+user@wombat # chmod 700 bin/webwatch
+user@wombat # bin/webwatch -help
 ```
 
 ## Usage
 
 ```bash
-$ webwatch -help
+user@wombat ~ # webwatch -help
 Usage of webwatch:
   -config string
         the name of the config file (default "config.json")
@@ -34,7 +39,7 @@ Usage of webwatch:
 ```
 
 ```bash
-$ webwatch -config home/cv/webwatch/config.json -v
+user@wombat ~ # webwatch -config home/cv/webwatch/config.json -v
 ```
 
 
@@ -65,15 +70,15 @@ Webwatch loads its configuration from a json file with the following structure:
 * `urls` The URLs you want to watch. Configure any number of URLs here.
 
 * `checks` The check interval for your URLs. Valid suffixes are 'h' for hours,
-  'm' for minutes and 's' for seconds. Minimum is '1s'.
+  'm' for minutes and 's' for seconds. Default is '5m'.
 
 * `reports` The interval webwatch should send report mails. This setting
   applies only if the states the URLs did not change since the last mail.  If
   the state of one URL changes, webwatch will send mail immediately and not
-  wait for the 'reports' interval. Minimum is '30s'.
+  wait for the 'reports' interval. Default is '12h'.
 
 * `limit` Rate-limit for mails. webwatch will sent at most one mail per 'limit'
-  period. Minimum is '30s'.
+  period, no matter what. Default is '1h'.
 
 * `mail` Mail configuration.
 
