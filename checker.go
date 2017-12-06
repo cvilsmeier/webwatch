@@ -23,6 +23,8 @@ func (cr CheckResult) IsDifferent(other CheckResult) bool {
 
 // A Checker checks URLs and returns a CheckResult.
 type Checker interface {
+	
+	// Check checks URLs and returns a CheckResult.
 	Check() CheckResult
 }
 
