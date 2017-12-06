@@ -1,4 +1,4 @@
-package main
+package webwatch
 
 import (
 	"io/ioutil"

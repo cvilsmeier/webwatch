@@ -1,4 +1,4 @@
-package main
+package webwatch
 
 import (
 	"time"
@@ -16,5 +16,6 @@ type sleeperImpl struct {
 }
 
 func (this sleeperImpl) Sleep(duration time.Duration) {
+	DEBUG.Printf("will sleep %s\n", duration)
 	time.Sleep(duration)
 }
