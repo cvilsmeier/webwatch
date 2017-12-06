@@ -2,9 +2,9 @@ package main
 
 import (
 	"flag"
+	"github.com/cvilsmeier/webwatch"
 	"os"
 	"time"
-	"github.com/cvilsmeier/webwatch"
 )
 
 var configfile string
