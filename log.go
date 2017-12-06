@@ -6,5 +6,10 @@ import (
 	"os"
 )
 
-var INFO *log.Logger = log.New(os.Stdout, "INFO  ", log.LstdFlags)
-var DEBUG *log.Logger = log.New(ioutil.Discard, "DEBUG ", log.LstdFlags)
+var (
+	// INFO logger, writes to stdout.
+	INFO  *log.Logger = log.New(os.Stdout, "INFO ", log.LstdFlags)
+
+	// DEBUG logger, writes to stdout. Default disabled.
+	DEBUG *log.Logger = log.New(ioutil.Discard, "DEBG ", log.LstdFlags)
+)

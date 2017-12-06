@@ -4,10 +4,14 @@ import (
 	"time"
 )
 
+// A Sleeper sleeps.
 type Sleeper interface {
+
+	// Sleep sleeps the specified duration.
 	Sleep(duration time.Duration)
 }
 
+// NewSleeper creates a new Sleeper.
 func NewSleeper() Sleeper {
 	return sleeperImpl{}
 }
@@ -15,7 +19,7 @@ func NewSleeper() Sleeper {
 type sleeperImpl struct {
 }
 
-func (this sleeperImpl) Sleep(duration time.Duration) {
+func (si sleeperImpl) Sleep(duration time.Duration) {
 	DEBUG.Printf("will sleep %s\n", duration)
 	time.Sleep(duration)
 }

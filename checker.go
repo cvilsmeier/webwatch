@@ -7,23 +7,26 @@ import (
 	"strings"
 )
 
-// -----------------
-
+// A CheckResult contains the result of checking a number
+// of URLs for their reachability.
 type CheckResult struct {
 	Ok   bool
 	Text string
 }
 
-func (this CheckResult) IsDifferent(other CheckResult) bool {
-	return this.Ok != other.Ok || this.Text != other.Text
+// IsDifferent returns true if cr differs from other.
+func (cr CheckResult) IsDifferent(other CheckResult) bool {
+	return cr.Ok != other.Ok || cr.Text != other.Text
 }
 
 // -----------------
 
+// A Checker checks URLs and returns a CheckResult.
 type Checker interface {
 	Check() CheckResult
 }
 
+// NewChecker creates a new Checker that checks a list of URLs.
 func NewChecker(urls []string) Checker {
 	return checkerImpl{
 		urls,
@@ -34,13 +37,13 @@ type checkerImpl struct {
 	urls []string
 }
 
-func (this checkerImpl) Check() CheckResult {
+func (ci checkerImpl) Check() CheckResult {
 	ok := true
 	text := ""
-	for _, url := range this.urls {
+	for _, url := range ci.urls {
 		url = strings.TrimSpace(url)
 		if url != "" {
-			err := this.checkUrl(url)
+			err := ci.checkUrl(url)
 			if err != nil {
 				ok = false
 				text += fmt.Sprintf("%s\r\nERR %s\r\n\r\n", url, err)
@@ -52,7 +55,7 @@ func (this checkerImpl) Check() CheckResult {
 	return CheckResult{ok, text}
 }
 
-func (this checkerImpl) checkUrl(url string) error {
+func (ci checkerImpl) checkUrl(url string) error {
 	DEBUG.Printf("check %s\n", url)
 	res, err := http.Get(url)
 	if err != nil {

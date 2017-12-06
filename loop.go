@@ -4,7 +4,7 @@ import (
 	"time"
 )
 
-// Loop ist the main loop.
+// Loop is the main loop.
 type Loop struct {
 	sleeper    Sleeper
 	checker    Checker
@@ -30,19 +30,21 @@ func NewLoop(sleeper Sleeper, checker Checker, mailer Mailer, checks, reports, l
 	}
 }
 
-// Tick executes the main loop. It invokes the checker and (maybe) sends a mail and sleeps for a certain time.
-func (this *Loop) Tick(now time.Time) {
-	result := this.checker.Check()
-	if result.IsDifferent(this.lastResult) {
-		this.mailer.SendReport(now, result.Ok, result.Text)
-		this.lastMail = now
-		this.lastResult = result
-		this.sleeper.Sleep(this.limit)
-	} else if now.Sub(this.lastMail) > this.reports {
-		this.mailer.SendReport(now, this.lastResult.Ok, this.lastResult.Text)
-		this.lastMail = now
-		this.sleeper.Sleep(this.limit)
+// Tick executes the main loop.
+// It invokes the checker and (maybe) sends a mail and
+// then sleeps for a certain time.
+func (l *Loop) Tick(now time.Time) {
+	result := l.checker.Check()
+	if result.IsDifferent(l.lastResult) {
+		l.mailer.SendReport(now, result.Ok, result.Text)
+		l.lastMail = now
+		l.lastResult = result
+		l.sleeper.Sleep(l.limit)
+	} else if now.Sub(l.lastMail) > l.reports {
+		l.mailer.SendReport(now, l.lastResult.Ok, l.lastResult.Text)
+		l.lastMail = now
+		l.sleeper.Sleep(l.limit)
 	} else {
-		this.sleeper.Sleep(this.checks)
+		l.sleeper.Sleep(l.checks)
 	}
 }

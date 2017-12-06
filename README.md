@@ -20,7 +20,6 @@ check each other.
 Webwatch is written in [Go](https://golang.org/) (we need 1.9.0 or higher).
 
 ```bash
-$ (optionally) export GOPATH=\`pwd\`
 $ go get -u github.com/cvilsmeier/webwatch/cmd/webwatch
 ```
 
@@ -71,10 +70,10 @@ Webwatch loads its configuration from a json file with the following structure:
 * `reports` The interval webwatch should send report mails. This setting
   applies only if the states the URLs did not change since the last mail.  If
   the state of one URL changes, webwatch will send mail immediately and not
-  wait for the 'reports' interval.
+  wait for the 'reports' interval. Minimum is '30s'.
 
 * `limit` Rate-limit for mails. webwatch will sent at most one mail per 'limit'
-  period
+  period. Minimum is '30s'.
 
 * `mail` Mail configuration.
 

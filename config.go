@@ -9,33 +9,42 @@ import (
 
 // --------------------------------------------
 
+// Interval is a time.Duration that can be marshalled to
+// and unmarshalled from JSON.
 type Interval time.Duration
 
-func (this *Interval) UnmarshalJSON(b []byte) error {
+// UnmarshalJSON converts an Interval to JSON.
+func (iv *Interval) UnmarshalJSON(b []byte) error {
 	if b[0] == '"' {
 		text := string(b[1 : len(b)-1])
 		d, err := time.ParseDuration(text)
 		if err != nil {
 			return err
 		}
-		*this = Interval(d)
+		*iv = Interval(d)
 		return nil
 	}
 	return fmt.Errorf("does not begin with \"")
 }
 
-func (this Interval) MarshalJSON() ([]byte, error) {
-	tstamp := this.String()
+// MarshalJSON converts a JSON value to an Interval.
+func (iv Interval) MarshalJSON() ([]byte, error) {
+	tstamp := iv.String()
 	quoted := fmt.Sprintf("\"%s\"", tstamp)
 	return []byte(quoted), nil
 }
 
-func (this Interval) String() string {
-	return time.Duration(this).String()
+// String() returns a string representation of this Interval,
+// see https://golang.org/pkg/time/#Duration.String
+// for more info.
+func (iv Interval) String() string {
+	return time.Duration(iv).String()
 }
 
 // --------------------------------------------
 
+// Config holds the configuration data
+// found in the config.json file.
 type Config struct {
 	Urls    []string   `json:"urls"`
 	Checks  Interval   `json:"checks"`
@@ -44,6 +53,8 @@ type Config struct {
 	Mail    MailConfig `json:"mail"`
 }
 
+// MailConfig holds the mail configuration
+// found in the config.json file.
 type MailConfig struct {
 	Subject  string `json:"subject"`
 	From     string `json:"from"`
@@ -53,6 +64,10 @@ type MailConfig struct {
 	Password string `json:"password"`
 }
 
+// LoadConfig loads the JSON configuration file and
+// converts it to a Config structure.
+// LoadConfig returns an error if the fil cannot be loaded
+// or parsed.
 func LoadConfig(filename string) (Config, error) {
 	c := Config{}
 	buf, err := ioutil.ReadFile(filename)
