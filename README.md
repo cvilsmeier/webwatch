@@ -20,18 +20,19 @@ check each other.
 Webwatch is written in [Go](https://golang.org/) (we need 1.9.0 or higher).
 
 ```bash
-user@wombat # mkdir ~/webwatch
-user@wombat # export GOPATH=/tmp/webwatch
-user@wombat # cd $GOPATH
-user@wombat # go get -u github.com/cvilsmeier/webwatch/cmd/webwatch
-user@wombat # chmod 700 bin/webwatch
-user@wombat # bin/webwatch -help
+user@wombat ~ # mkdir ~/webwatch
+user@wombat ~ # export GOPATH=~/webwatch
+user@wombat ~ # cd $GOPATH
+user@wombat webwatch # go get -u github.com/cvilsmeier/webwatch/cmd/webwatch
+user@wombat webwatch # cd bin
+user@wombat bin # chmod 700 webwatch
+user@wombat bin # ./webwatch -help
 ```
 
 ## Usage
 
 ```bash
-user@wombat ~ # webwatch -help
+user@wombat webwatch # bin/webwatch -help
 Usage of webwatch:
   -config string
         the name of the config file (default "config.json")
