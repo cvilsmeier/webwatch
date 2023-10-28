@@ -1,5 +1,17 @@
 # Webwatch
 
+
+## THIS PROJECT IS ARCHIVED
+
+Monibot is a much better alternative: [https://monibot.io](https://monibot.io?ref=webwatch) 
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+
 [![GoDoc](https://godoc.org/github.com/cvilsmeier/webwatch?status.svg)](https://godoc.org/github.com/cvilsmeier/webwatch)
 [![Build Status](https://travis-ci.org/cvilsmeier/webwatch.svg?branch=master)](https://travis-ci.org/cvilsmeier/webwatch)
 [![Go Report Card](https://goreportcard.com/badge/github.com/cvilsmeier/webwatch)](https://goreportcard.com/report/github.com/cvilsmeier/webwatch)
